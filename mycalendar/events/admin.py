@@ -1,4 +1,3 @@
-
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
@@ -9,6 +8,7 @@ import calendar
 from django.urls import reverse
 from calendar import HTMLCalendar
 from django.utils.safestring import mark_safe
+from .utils import EventCalendar
 
 
 class EventAdmin(admin.ModelAdmin):
@@ -37,13 +37,15 @@ class EventAdmin(admin.ModelAdmin):
         next_month = next_month + datetime.timedelta(days=1)
         next_month = datetime.date(year=next_month.year, month=next_month.month, day=1)
 
-        extra_context['previous_month'] = reverse ('admin:events_event_changelist') + '?day__gte=' + str(previous_month)
+        extra_context['previous_month'] = reverse('admin:events_event_changelist') + '?day__gte=' + str(previous_month)
         extra_context['next_month'] = reverse('admin:events_event_changelist') + '?day__gte=' + str(next_month)
 
-        cal = HTMLCalendar()
+        cal = EventCalendar()
+
         html_calendar = cal.formatmonth(d.year, d.month, withyear=True)
         html_calendar = html_calendar.replace('<td ', '<td width="150" height="150"')
         extra_context['calendar'] = mark_safe(html_calendar)
         return super(EventAdmin, self).changelist_view(request, extra_context)
+
 
 admin.site.register(Event, EventAdmin)
