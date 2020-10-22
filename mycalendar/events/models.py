@@ -4,11 +4,13 @@ from __future__ import unicode_literals
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.urls import reverse
+from .newrdvtry import newRdvTry
 
 
 class Event(models.Model):
     day = models.DateField(u'Day of the event', help_text=u'Day of the event')
-    start_time = models.TimeField(u'Starting time', help_text=u'Starting time')
+    start_time = models.TimeField(u'Quelle genre de RDV ?', help_text=u'Quelle genre de RDV ?')
+    genre_rdv = newRdvTry.GenreRdv(u'Genre de RDV ?', help_text =u'Quelle genre de RDV ?')
     end_time = models.TimeField(u'Final time', help_text=u'Final time')
     notes = models.TextField(u'Textual Notes', help_text=u'Textual Notes', blank=True, null=True)
 

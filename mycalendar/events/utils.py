@@ -1,5 +1,4 @@
 from calendar import HTMLCalendar
-from datetime import datetime as dtime, date, time
 from .models import Event
 
 

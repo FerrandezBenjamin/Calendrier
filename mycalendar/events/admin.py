@@ -6,13 +6,13 @@ from .models import Event
 import datetime
 import calendar
 from django.urls import reverse
-from calendar import HTMLCalendar
 from django.utils.safestring import mark_safe
 from .utils import EventCalendar
 
 
 class EventAdmin(admin.ModelAdmin):
-    list_display = ['day', 'start_time', 'end_time', 'notes']
+    list_display = ['day', 'genreRdv', 'notes'] # Mettre dans le tableau les choix de RDV simple, specialiste et manip
+    genre_rdv_template = 'admin/events/genre_rdv.html'
     change_list_template = 'admin/events/change_list.html'
 
     def changelist_view(self, request, extra_context=None):
